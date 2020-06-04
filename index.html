@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  #database{display:none;}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:active .flip-card-inner {
+  transform: rotateY(-180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+h1{
+  color:#F92472;
+}
+
+#mia{font-size:55px;}
+#spelling{font-size:20px;}
+#mib{font-size:30px;
+padding:5px 5px 10px 0px;}
+#mie{}
+#gend{}
+.flip-card-front {
+  background-color: #F9F9FA;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #78797C;
+  color: white;
+  transform: rotateY(180deg);
+}
+</style>
+</head>
+<body onload="myfunction()">
+
+<h1>Learning Arabic</h1>
+        click and hold on the arabic word to see meaning
+
+<br>
+
+
+<div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+        
+        
+        
+      <h4>Arabic Word</h4>
+      <h1 id="mia"></h1><br>
+<span id="spelling"></span> <br><br>
+
+
+    </div>
+    <div class="flip-card-back">
+      <h4>Meaning</h4> 
+      Bengali: 
+      <span id="mib"></span> <br><br>
+      English:
+      <span id="mie"></span> <br><br>
+      Gender: <span id="gend"></span>
+    </div>
+  </div>
+</div>
+      <br><input  type="button" value="See another Word" onclick="myfunction()"><br><br>
+Currently showing <span id="current"></span>th Word from <span id="totalrow"></span> words listed.
+<table border="0px">
+  <tr>
+    <td>From: </td>
+    <td><input type="number" name="" id="randfrom" value=1></td>
+
+    <td>To: </td>
+    <td><input type="number" name="" id="randto" value=10></td>
+  </tr>
+</table>
+
+<table id="database" border="1px solid">
+  
+<tr><td>Arabic</td><td>বাংলা</td><td>ইংরেজী</td><td>Type</td><td>উচ্চারণ</td></tr>
+<tr><td>هَذَ</td><td>এটা</td><td>this</td><td>Male</td><td>হাযা</td></tr>
+<tr><td>هَـذِهِ</td><td>এটা</td><td>this</td><td></td><td>হাযিহি</td></tr>
+<tr><td>هَـؤُلآءِ</td><td>এগুলে</td><td>These</td><td></td><td>হাউলা</td></tr>
+<tr><td>ذَلِكَ</td><td>যা / যে</td><td>that</td><td>Male</td><td>যালিকা</td></tr>
+<tr><td>تِلْكَ </td><td>যা / যে</td><td>that</td><td></td><td>তিলকা</td></tr>
+<tr><td>أُولَئِكَ </td><td>যেগুলি / যারা</td><td>those</td><td></td><td>উলাইক</td></tr>
+<tr><td>اَلَّذِىْ</td><td>যে</td><td>who</td><td></td><td>আল্লাযী</td></tr>
+<tr><td>اَلَّتِىْ</td><td>যে</td><td>who</td><td></td><td>আল্লাতী</td></tr>
+<tr><td>اَلَّذِيْنَ</td><td>তোমরা যারা</td><td></td><td></td><td></td></tr>
+<tr><td>تَحْتَ</td><td>তোমরা যারা</td><td></td><td></td><td>তাহতা</td></tr>
+
+
+
+</table>
+
+<script>
+function myfunction() {
+    var minimum_n = parseInt(document.getElementById('randfrom').value);
+    var maximum_n = parseInt(document.getElementById('randto').value);
+    
+    
+    var current_word = (Math.random() * (maximum_n - minimum_n) + minimum_n).toFixed(0);
+
+    document.getElementById("current").innerHTML = current_word   ;
+    
+    document.getElementById("current").innerHTML = current_word   ;
+    
+    var arabic_word = document.getElementById("database").rows[current_word].cells[0].innerHTML;
+    document.getElementById("mia").innerHTML = arabic_word;
+
+    var bengali_word = document.getElementById("database").rows[current_word].cells[1].innerHTML;
+    document.getElementById("mib").innerHTML = bengali_word;
+
+    
+    document.getElementById("spelling").innerHTML = "উচ্চারণ: " + document.getElementById("database").rows[current_word].cells[4].innerHTML;
+
+    var english_word = document.getElementById("database").rows[current_word].cells[2].innerHTML;
+    document.getElementById("mie").innerHTML = english_word;
+    document.getElementById("totalrow").innerHTML = document.getElementById("database").rows.length- 1;  
+
+    var gender_word = document.getElementById("database").rows[current_word].cells[3].innerHTML;
+    if (gender_word.length > 0) {
+        document.getElementById("gend").innerHTML = "Mascunine / পুরুষবাচক";
+    }
+    else{   document.getElementById("gend").innerHTML = "Femine / মহিলাবাচক";}
+  }
+
+
+
+</script>
+
+</body>
+</html>
